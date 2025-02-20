@@ -1,11 +1,10 @@
 {
   "name": "amy-lang",
   "displayName": "Amy Language Support",
-  "description": "Provides syntax highlighting for Amy, the toy functionnal programming language, for class CS-320.",
+  "description": "Syntax highlighting for the toy language Amy, for class CS-320 by Youssef Laraki. 🦊",
   "author": {
 	"name": "Youssef Laraki"
   },
-  "publisher": "Youssef Laraki",
   "repository": {
 	"url": "https://github.com/holoisme/amy-lang-extension"
   },
