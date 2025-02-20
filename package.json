@@ -5,6 +5,9 @@
   "author": {
 	"name": "Youssef Laraki"
   },
+  "repository": {
+	"url": "https://github.com/holoisme/amy-lang-extension"
+  },
   "version": "0.0.1",
   "icon": "./icons/amy.png",
   "engines": {
