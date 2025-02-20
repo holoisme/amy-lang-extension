@@ -1,0 +1,43 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "literal",
+	"patterns": [
+		{
+			"include": "#number-literal"
+		},
+		{
+			"include": "#boolean-literal"
+		},
+		{
+			"include": "#string-literal"
+		}
+	],
+	"repository": {
+		"number-literal": {
+			"patterns": [{
+				"name": "constant.numeric.amy",
+				"match": "[0-9]+"
+			}]
+		},
+		"boolean-literal": {
+			"patterns": [
+				{
+					"name": "constant.language.boolean.amy",
+					"match": "\\b(true|false)\\b"
+				}
+			]
+		},
+		"string-literal": {
+			"name": "string.quoted.double.amy",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.amy",
+					"match": "\\\\."
+				}
+			]
+		}
+	},
+	"scopeName": "source.amy.literal"
+}

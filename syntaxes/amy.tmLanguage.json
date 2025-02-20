@@ -1,0 +1,334 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Amy",
+	"patterns": [
+		{ "include": "source.amy.comments" },
+		
+		{ "include": "#declarations" },
+		{ "include": "#built-in-types" },
+		{ "include": "#case-pattern" },
+
+		{ "include": "#keywords" },
+		{ "include": "#expression" },
+
+		{ "include": "#characters" },
+		{ "include": "#semicolon" }
+	],
+	"repository": {
+		"declarations": {
+			"patterns": [
+				{
+					"include": "#abstract-class-declaration"
+				},
+				{
+					"include": "#case-class-declaration"
+				},
+				{
+					"include": "#object-declaration"
+				},
+				{
+					"include": "#object-end"
+				},
+				{
+					"include": "#function-declaration"
+				},
+				{
+					"include": "#variable-declaration"
+				}
+			]
+		},
+		"expression": {
+			"patterns": [
+				{
+					"include": "source.amy.literal"
+				},
+				{
+					"include": "#static-access"
+				},
+				{
+					"include": "#function-call"
+				},
+				{
+					"include": "#identifier"
+				}
+			]
+		},
+		"keywords": {
+			"patterns": [{
+				"name": "keyword.control.amy",
+				"match": "\\b(abstract|case|class|fn|else|error|extends|if|match|object|end|val|_)\\b"
+			}]
+		},
+		"built-in-types": {
+			"patterns": [
+				{
+					"name": "entity.name.type.amy",
+					"match": "\\b(Boolean|String|Unit)\\b"
+				},
+				{
+					"name": "entity.name.type.amy",
+					"match": "(Int)(\\(32\\))",
+					"captures": {
+						"0": {
+							"name": "entity.name.type.amy"
+						},
+						"1": {
+							"name": "entity.name.type.amy"
+						}
+					}
+				}
+			]
+		},
+		"type": {
+			"patterns": [
+				{
+					"include": "#built-in-types"
+				},
+				{
+					"name": "entity.name.type.amy",
+					"match": "(([a-zA-Z][a-zA-Z0-9_]*)\\.)?[a-zA-Z][a-zA-Z0-9_]*"
+				}
+			]
+		},
+		"case-pattern": {
+			"begin": "\\b(case)\\b",
+			"beginCaptures": {
+				"0": {
+					"name": "keyword.control.amy"
+				}
+			},
+			"end": "=>",
+			"patterns": [
+				{
+					"match": "(([a-zA-Z][a-zA-Z0-9_]*)\\.)?[a-zA-Z][a-zA-Z0-9_]*\\(",
+					"captures": {
+						"0": {
+							"name": "variable.other.enummember.amy"
+						},
+						"1": {
+							"name": "entity.name.class.amy"
+						}
+					}
+				},
+				{
+					"include": "source.amy.literal"
+				}
+			]
+		},
+
+		"variable-declaration": {
+			"begin": "\\b(val)\\s+([a-zA-Z][a-zA-Z0-9_]*)\\s*(:?)\\b",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.control.amy"
+				},
+				"2": {
+					"name": "variable.amy"
+				}
+			},
+			"end": "=",
+			"patterns": [
+				{
+					"include": "#type"
+				}
+			]
+		},
+		"abstract-class-declaration": {
+			"begin": "\\b(abstract) (class)\\s+([a-zA-Z][a-zA-Z0-9_]*)",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.control.amy"
+				},
+				"2": {
+					"name": "keyword.control.amy"
+				},
+				"3": {
+					"name": "entity.name.class.amy"
+				}
+			},
+			"end": "\\n"
+		},
+		"case-class-declaration": {
+			"begin": "\\b(case) (class)\\s+([a-zA-Z][a-zA-Z0-9_]*)",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.control.amy"
+				},
+				"2": {
+					"name": "keyword.control.amy"
+				},
+				"3": {
+					"name": "variable.other.enummember.amy"
+				}
+			},
+			"end": "\\n",
+			"patterns": [
+				{
+					"match": "(extends)\\s+([a-zA-Z][a-zA-Z0-9_]*)",
+					"captures": {
+						"0": {
+							"name": "entity.name.class.amy"
+						},
+						"1": {
+							"name": "keyword.control.amy"
+						}
+					}
+				},
+				{
+					"include": "#function-parameters"
+				}
+			]
+		},
+		"object-declaration": {
+			"begin": "\\b(object)\\s+([a-zA-Z][a-zA-Z0-9_]*)",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.control.amy"
+				},
+				"2": {
+					"name": "entity.name.namespace.amy"
+				}
+			},
+			"end": "\\n"
+		},
+		"object-end": {
+			"begin": "\\b(end)\\s+([a-zA-Z][a-zA-Z0-9_]*)",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.control.amy"
+				},
+				"2": {
+					"name": "entity.name.namespace.amy"
+				}
+			},
+			"end": "\\n"
+		},
+		"function-declaration": {
+			"begin": "\\b(fn)\\s+([a-zA-Z][a-zA-Z0-9_]*)\\s*",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.control.amy"
+				},
+				"2": {
+					"name": "entity.name.function.amy"
+				}
+			},
+			"patterns": [
+				{ "include": "#function-parameters" },
+				{
+					"begin": "(:)",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.operator.type.annotation.amy"
+						}
+					},
+					"end": "\\=",
+					"patterns": [
+						{
+							"include": "#type"
+						}
+					]
+				}
+			],
+			"end": "\\{"
+		},
+		"function-parameters": {
+			"name": "meta.parameters.amy",
+			"begin": "\\(",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.parameters.begin.amy"
+				}
+			},
+			"end": "\\)",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.definition.parameters.end.amy"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#function-parameters-body"
+				}
+			]
+		},
+		"function-parameters-body": {
+			"patterns": [
+				{
+					"include": "#parameter-name"
+				},
+				{
+					"include": "#parameter-type-annotation"
+				},
+				{
+					"name": "punctuation.separator.parameter.amy",
+					"match": ","
+				}
+			]
+		},
+		"parameter-name": {
+			"patterns": [
+				{
+					"match": "[a-zA-Z][a-zA-Z0-9_]*",
+					"captures": {
+						"0": {
+							"name": "variable.amy"
+						}
+					}
+				}
+			]
+		},
+		"parameter-type-annotation": {
+			"patterns": [
+				{
+					"name": "meta.type.annotation.amy",
+					"begin": "(:)",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.operator.type.annotation.amy"
+						}
+					},
+					"end": "(?=[,)])|(?==[^>])",
+					"patterns": [
+						{
+							"include": "#type"
+						}
+					]
+				}
+			]
+		},
+		"function-call": {
+			"patterns": [{
+				"name": "entity.name.function.amy",
+				"match": "[a-zA-Z$_]+[\\da-zA-Z$_]*\\s*\\("
+			}]
+		},
+		"static-access": {
+			"patterns": [{
+				"name": "entity.name.function.amy",
+				"match": "([a-zA-Z$_]+[\\da-zA-Z$_]*)\\s*(\\.)",
+				"captures": {
+					"1": {
+						"name": "entity.name.namespace.amy"
+					},
+					"2": {
+						"name": "punctuation.amy"
+					}
+				}
+			}]
+		},
+		"identifier": {
+			"patterns": [{
+				"name": "variable.amy",
+				"match": "[a-zA-Z$_]+[\\da-zA-Z$_]*"
+			}]
+		},
+		"semicolon": {
+			"patterns": [{
+				"name": "punctuation.terminator.statement.amy",
+				"match": ";"
+			}]
+		}
+	},
+	"scopeName": "source.amy"
+}

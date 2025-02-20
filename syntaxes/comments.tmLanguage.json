@@ -1,0 +1,24 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "comments",
+	"patterns": [
+		{
+			"include": "#comment"
+		},
+		{
+			"include": "#comment-block"
+		}
+	],
+	"repository": {
+		"comment": {
+			"name": "comment.line.amy",
+			"match": "//.*"
+        },
+        "comment-block": {
+            "name": "comment.block.amy",
+            "begin": "/\\*",
+            "end": "\\*/"
+        }
+	},
+	"scopeName": "source.amy.comments"
+}

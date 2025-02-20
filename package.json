@@ -1,0 +1,45 @@
+{
+  "name": "amy-lang",
+  "displayName": "Amy Language Support",
+  "description": "This extension provides syntax highlighting for Amy",
+  "author": {
+	"name": "Youssef Laraki"
+  },
+  "version": "0.0.1",
+  "icon": "./icons/amy.png",
+  "engines": {
+    "vscode": "^1.86.2"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "amy",
+      "aliases": ["Amy", "amy"],
+      "extensions": [".amy"],
+      "configuration": "./language-configuration.json",
+	  "icon": {
+        "light": "./icons/amy.svg",
+        "dark": "./icons/amy.svg"
+      }
+    }],
+    "grammars": [
+		{
+			"language": "amy",
+			"scopeName": "source.amy",
+			"path": "./syntaxes/amy.tmLanguage.json"
+		},
+		{
+			"scopeName": "source.amy.literal",
+			"path": "./syntaxes/literal.tmLanguage.json",
+			"injectTo": ["source.amy"]
+		},
+		{
+			"scopeName": "source.amy.comments",
+			"path": "./syntaxes/comments.tmLanguage.json",
+			"injectTo": ["source.amy"]
+		}
+	]
+  }
+}
