@@ -56,7 +56,7 @@
 		"keywords": {
 			"patterns": [{
 				"name": "keyword.control.amy",
-				"match": "\\b(abstract|case|class|fn|else|error|extends|if|match|object|end|val|_)\\b"
+				"match": "\\b(abstract|case|class|def|else|error|extends|if|match|object|end|val|_)\\b"
 			}]
 		},
 		"built-in-types": {
@@ -204,7 +204,7 @@
 			"end": "\\n"
 		},
 		"function-declaration": {
-			"begin": "\\b(fn)\\s+([a-zA-Z][a-zA-Z0-9_]*)\\s*",
+			"begin": "\\b(def)\\s+([a-zA-Z][a-zA-Z0-9_]*)\\s*",
 			"beginCaptures": {
 				"1": {
 					"name": "keyword.control.amy"
